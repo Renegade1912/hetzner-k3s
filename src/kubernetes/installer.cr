@@ -121,7 +121,7 @@ class Kubernetes::Installer
     command = "kubectl cluster-info 2> /dev/null"
 
     Retriable.retry(max_attempts: 3, on: Tasker::Timeout, backoff: false) do
-      Tasker.timeout(30.seconds) do
+      Tasker.timeout(900.seconds) do
         loop do
           result = run_shell_command(command, configuration.kubeconfig_path, settings.hetzner_token, log_prefix: "Control plane", abort_on_error: false, print_output: false)
           break if result.output.includes?("running")
